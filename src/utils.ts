@@ -26,20 +26,8 @@ export const gridMatrixToNeopixelArray = (gridMatrix: rgbT[][]): number[] => {
 
 export const gridMatrixToNeopixelArray3x3 = (
   canvasGridMatrix: rgbT[][],
-  oneMatrixSideLength: number = 16,
-  matrixSideCount: number = 3
+  oneMatrixSideLength: number = 16
 ): number[] => {
-  /*
-  const matrixSideLength = oneMatrixSideLength * matrixSideCount;
-  const ledGridMatrix: rgbT[][] = array(matrixSideLength).map((e, rowIndex) =>
-    array(matrixSideLength).map((e, colIndex) => {
-      return gridMatrix[rowIndex][colIndex];
-    })
-  );
-
-  return arrayFlat<number>(arrayFlat<rgbT>(ledGridMatrix));
-  */
-
   // split up canvas grid into the nine matrices
   const splitUp: Record<string, rgbT[][]> = {
     '0/0': [],
@@ -66,9 +54,9 @@ export const gridMatrixToNeopixelArray3x3 = (
     })
   );
 
-  Object.entries(splitUp).map(([key, smallMatrix]) =>
-    console.log(key, gridMatrixToNeopixelArray(smallMatrix))
-  );
+  Object.entries(splitUp).map(([key, smallMatrix]) => {
+    //console.log(key, gridMatrixToNeopixelArray(smallMatrix))
+  });
 
   let full = [];
   Object.values(splitUp).map((smallMatrix) => {
@@ -76,50 +64,6 @@ export const gridMatrixToNeopixelArray3x3 = (
   });
 
   return full;
-
-  /*
-
-const matrixCount = matrixSideCount * matrixSideCount;
-const oneMatrixSize = oneMatrixSideLength * oneMatrixSideLength;
-const flattedCanvasGrid = arrayFlat<rgbT>(gridMatrix);
-const pixel: rgbT[] = array(oneMatrixSize * matrixCount).map(
-(e, elementIndex) => {
-const grid;
-return [0, 0, 0];
-const elementNumber = i + 1;
-const gridNumber = Math.ceil(elementNumber / oneMatrixSize);
-const numberInGrid = elementNumber - oneMatrixSize * (gridNumber - 1);
-const indexInGrid = numberInGrid - 1;
-const row = Math.floor(indexInGrid / oneMatrixSideLength) + 1;
-let indexInCanvas = indexInGrid;
-if (row % 2 === 1) {
-indexInCanvas =
-  (indexInGrid -
-    (row - 1) * oneMatrixSideLength -
-    oneMatrixSideLength +
-    1) *
-    -1 +
-  (row - 1) * oneMatrixSideLength;
-}
-const indexInFullCanvas = indexInCanvas + oneMatrixSize * (gridNumber - 1);
-return flattedCanvasGrid[indexInFullCanvas];
-    }
-  );
-
-  return arrayFlat(pixel);*/
-
-  /*
-
-  const size = gridMatrix.length;
-  const ledMatrix: rgbT[][] = getGridMatrix([0, 0, 0], 16 * 3);
-  gridMatrix.map((col, rowIndex) =>
-    col.map((pixel, colIndex) => {
-      ledMatrix[rowIndex][rowIndex % 2 !== 1 ? size - colIndex - 1 : colIndex] =
-        pixel;
-    })
-  );
-
-  return arrayFlat<number>(arrayFlat<rgbT>(ledMatrix));*/
 };
 
 export const wait = (ms: number = 2000): Promise<void> =>

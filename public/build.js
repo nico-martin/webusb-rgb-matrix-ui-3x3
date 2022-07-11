@@ -337,19 +337,8 @@ System.register("utils", [], function (exports_4, context_4) {
                 });
                 return arrayFlat(arrayFlat(ledMatrix));
             });
-            exports_4("gridMatrixToNeopixelArray3x3", gridMatrixToNeopixelArray3x3 = function (canvasGridMatrix, oneMatrixSideLength, matrixSideCount) {
-                /*
-                const matrixSideLength = oneMatrixSideLength * matrixSideCount;
-                const ledGridMatrix: rgbT[][] = array(matrixSideLength).map((e, rowIndex) =>
-                  array(matrixSideLength).map((e, colIndex) => {
-                    return gridMatrix[rowIndex][colIndex];
-                  })
-                );
-              
-                return arrayFlat<number>(arrayFlat<rgbT>(ledGridMatrix));
-                */
+            exports_4("gridMatrixToNeopixelArray3x3", gridMatrixToNeopixelArray3x3 = function (canvasGridMatrix, oneMatrixSideLength) {
                 if (oneMatrixSideLength === void 0) { oneMatrixSideLength = 16; }
-                if (matrixSideCount === void 0) { matrixSideCount = 3; }
                 // split up canvas grid into the nine matrices
                 var splitUp = {
                     '0/0': [],
@@ -376,55 +365,13 @@ System.register("utils", [], function (exports_4, context_4) {
                 });
                 Object.entries(splitUp).map(function (_a) {
                     var key = _a[0], smallMatrix = _a[1];
-                    return console.log(key, gridMatrixToNeopixelArray(smallMatrix));
+                    //console.log(key, gridMatrixToNeopixelArray(smallMatrix))
                 });
                 var full = [];
                 Object.values(splitUp).map(function (smallMatrix) {
                     full = __spreadArray(__spreadArray([], full, true), gridMatrixToNeopixelArray(smallMatrix), true);
                 });
                 return full;
-                /*
-              
-              const matrixCount = matrixSideCount * matrixSideCount;
-              const oneMatrixSize = oneMatrixSideLength * oneMatrixSideLength;
-              const flattedCanvasGrid = arrayFlat<rgbT>(gridMatrix);
-              const pixel: rgbT[] = array(oneMatrixSize * matrixCount).map(
-              (e, elementIndex) => {
-              const grid;
-              return [0, 0, 0];
-              const elementNumber = i + 1;
-              const gridNumber = Math.ceil(elementNumber / oneMatrixSize);
-              const numberInGrid = elementNumber - oneMatrixSize * (gridNumber - 1);
-              const indexInGrid = numberInGrid - 1;
-              const row = Math.floor(indexInGrid / oneMatrixSideLength) + 1;
-              let indexInCanvas = indexInGrid;
-              if (row % 2 === 1) {
-              indexInCanvas =
-                (indexInGrid -
-                  (row - 1) * oneMatrixSideLength -
-                  oneMatrixSideLength +
-                  1) *
-                  -1 +
-                (row - 1) * oneMatrixSideLength;
-              }
-              const indexInFullCanvas = indexInCanvas + oneMatrixSize * (gridNumber - 1);
-              return flattedCanvasGrid[indexInFullCanvas];
-                  }
-                );
-              
-                return arrayFlat(pixel);*/
-                /*
-              
-                const size = gridMatrix.length;
-                const ledMatrix: rgbT[][] = getGridMatrix([0, 0, 0], 16 * 3);
-                gridMatrix.map((col, rowIndex) =>
-                  col.map((pixel, colIndex) => {
-                    ledMatrix[rowIndex][rowIndex % 2 !== 1 ? size - colIndex - 1 : colIndex] =
-                      pixel;
-                  })
-                );
-              
-                return arrayFlat<number>(arrayFlat<rgbT>(ledMatrix));*/
             });
             exports_4("wait", wait = function (ms) {
                 if (ms === void 0) { ms = 2000; }
@@ -537,9 +484,7 @@ System.register("index", ["WebUSBController", "DropArea", "utils", "image"], fun
                                             i++;
                                         });
                                     });
-                                    return [4 /*yield*/, Controller.send(new Uint8Array(utils_1.gridMatrixToNeopixelArray3x3(gridMatrix))
-                                        //new Uint8Array(arrayFlat(array(16 * 16 * 9).map(() => [0, 255, 0])))
-                                        )];
+                                    return [4 /*yield*/, Controller.send(new Uint8Array(utils_1.gridMatrixToNeopixelArray3x3(gridMatrix)))];
                                 case 1:
                                     _a.sent();
                                     return [2 /*return*/];
@@ -554,7 +499,7 @@ System.register("index", ["WebUSBController", "DropArea", "utils", "image"], fun
                     $connectButton.addEventListener('click', function () { return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, Controller.connect({ filters: [{ vendorId: 0x2341 }] })];
+                                case 0: return [4 /*yield*/, Controller.connect({ filters: [{ vendorId: 0x2e8a }] })];
                                 case 1:
                                     _a.sent();
                                     return [4 /*yield*/, Controller.send(new Uint8Array(utils_1.gridMatrixToNeopixelArray(gridMatrix)))];

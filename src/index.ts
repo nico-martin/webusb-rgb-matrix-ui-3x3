@@ -102,7 +102,6 @@ const MATRIX_COUNT_H = 3;
 
       await Controller.send(
         new Uint8Array(gridMatrixToNeopixelArray3x3(gridMatrix))
-        //new Uint8Array(arrayFlat(array(16 * 16 * 9).map(() => [0, 255, 0])))
       );
     };
 
@@ -118,7 +117,7 @@ const MATRIX_COUNT_H = 3;
     );
 
     $connectButton.addEventListener('click', async () => {
-      await Controller.connect({ filters: [{ vendorId: 0x2341 }] });
+      await Controller.connect({ filters: [{ vendorId: 0x2e8a }] });
       await Controller.send(
         new Uint8Array(gridMatrixToNeopixelArray(gridMatrix))
       );
