@@ -250,7 +250,6 @@ System.register("WebUSBController", [], function (exports_2, context_2) {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    console.log(data.byteLength, data);
                                     if (!this.device) return [3 /*break*/, 2];
                                     return [4 /*yield*/, this.device.transferOut(this.endpointOut, data)];
                                 case 1: return [2 /*return*/, _a.sent()];
