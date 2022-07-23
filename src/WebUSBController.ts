@@ -115,7 +115,7 @@ export default class WebUSBController {
   }
 
   async send(data: BufferSource) {
-    console.log(data.byteLength, data);
+    //console.log(data.byteLength, data);
     if (this.device) {
       return await this.device.transferOut(this.endpointOut, data);
     } else {
